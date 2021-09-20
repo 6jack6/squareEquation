@@ -39,7 +39,7 @@ int testIsCorrect(const int i, const double a, const double b, const double c,
     double x1 = 0, x2 = 0;
     int answers = squareEquationRootsNum(a, b, c, &x1, &x2);
 
-    if((x1 == dataX1) & (x2 == dataX2) & (answers == rootsNum)) {
+    if((equality(x1, dataX1, Epsilon)) && (equality(x2, dataX2, Epsilon)) && (answers == rootsNum)) {
         printf("Test number %d has been completed correctly\n\n", i + 1);
     }
     else {
@@ -50,7 +50,7 @@ int testIsCorrect(const int i, const double a, const double b, const double c,
 
 int testFailure (const int i, const double x1, const double x2, const int answers,
                  const int rootsNum, const double dataX1, const double dataX2) {
-    printf("Test number %d has been failed:\n\n", i);
+    printf("Test number %d has been failed:\n\n", i + 1);
     printf("Received answer:\n\n1st root: %lg\n2nd Root: %lg\nNumber of roots: %d\n\n", x1, x2, answers);
     printf("Right answer:\n\n1st root: %lg\n2nd Root: %lg\nNumber of roots: %d\n\n", dataX1, dataX2, rootsNum);
     return testFailed;
