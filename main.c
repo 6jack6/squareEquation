@@ -4,9 +4,11 @@ int main() {
     int currentMode = 0;
     printf("Enter 0 for testing mode or 1 for working mode\n");
 
-    int flag = 1;
-    while(flag == 1) {
-        scanf("%d", &currentMode);
+    while(1) {
+        while(scanf("%d", &currentMode) != 1) {
+            while (getchar() != '\n') continue;
+            printf("Inappropriate data. Please, repeat\n");
+        }
         switch(currentMode) {
             case 0:
                 return testing();
@@ -17,7 +19,6 @@ int main() {
             }
             default :
                 printf("Wrong request, please, repeat\n");
-                flag = 1;
                 break;
         }
     }

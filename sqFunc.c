@@ -4,7 +4,7 @@
 
 #include "sqFunc.h"
 
-int answPrint (double a, double b, double c) {
+int answPrint (const double a, const double b, const double c) {
     double x1 = 0, x2 = 0;
     int answers = 0;
     answers = squareEquationRootsNum(a, b, c, &x1, &x2);
@@ -30,17 +30,29 @@ int answPrint (double a, double b, double c) {
 }
 
 void enterData (double *a, double *b, double *c) {
-    enterCoefficient(&a, 'a');
-    enterCoefficient(&b, 'b');
-    enterCoefficient(&c, 'c');
+    assert(a != b);
+    assert(a != c);
+    assert(b != c);
+    assert(a != NULL);
+    assert(b != NULL);
+    assert(c != NULL);
+
+    enterCoefficient(a, 'a');
+    enterCoefficient(b, 'b');
+    enterCoefficient(c, 'c');
+    printf("%lf, %lf, %lf\n", *a, *b, *c);
 }
 
-void enterCoefficient (double *coef, char name) {
-    printf("Enter %c\n", &name);
-    scanf("%lg", &coef);
+void enterCoefficient (double *coef, const char name) {
+    printf("Enter %c\n", name);
+    while(scanf("%lg", coef) != 1) {
+        while (getchar() != '\n') continue;
+        printf("Inappropriate data. Please, repeat\n");
+
+    }
 }
 
-int squareEquationRootsNum (double a, double b, double c, double *x1, double *x2) {
+int squareEquationRootsNum (const double a, const double b, const double c, double *x1, double *x2) {
     assert(isfinite(a));
     assert(isfinite(b));
     assert(isfinite(c));
@@ -67,9 +79,9 @@ int squareEquationRootsNum (double a, double b, double c, double *x1, double *x2
         if(d > 0) {//ax^2 + bx = 0; x = 0; ax + b = 0;
             if (equality(c, 0, Epsilon)) {
                 *x1 = 0;
-                linearEquationRootsNum(a, b, &x2);
+                linearEquationRootsNum(a, b, x2);
                 if (*x1 < *x2) {
-                    swap(&x1, &x2);
+                    swap(x1, x2);
                 }
                 return 2;
             }
@@ -83,7 +95,7 @@ int squareEquationRootsNum (double a, double b, double c, double *x1, double *x2
     }
 }
 
-int linearEquationRootsNum (double b, double c, double *x1) {
+int linearEquationRootsNum (const double b, const double c, double *x1) {
     assert(isfinite(b));
     assert(isfinite(c));
 
@@ -99,8 +111,8 @@ int linearEquationRootsNum (double b, double c, double *x1) {
     *x1 = (-c) / b;
     return 1;
 }
-//isnan
-int equality (double num1, double num2, double accurancy) {
+
+int equality (const double num1, const double num2, const double accurancy) {
     assert(isfinite(num1));
     assert(isfinite(num2));
     assert(isfinite(accurancy));

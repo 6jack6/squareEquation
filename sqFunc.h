@@ -13,8 +13,8 @@
 
 enum {
     infRoots = -1,
-    rootsDefiningError = 1,
-    testFailed = 2,
+    rootsDefiningError = -1,
+    testFailed = 1,
 };
 
 //---------------------------------------------
@@ -44,7 +44,7 @@ void enterData (double *a, double *b, double *c);
 //! \param [in] coef Pointer to the coefficient
 //! \param [in] name Coefficient`s name
 //---------------------------------------------
-void enterCoefficient (double *coef, char name);
+void enterCoefficient (double *coef, const char name);
 
 //---------------------------------------------
 //! Solves a square equation ax^2 + bx + c = 0
@@ -109,7 +109,7 @@ int testing ();
 //! \return Program finishing code
 //---------------------------------------------
 int testIsCorrect (const int i, const double a, const double b, const double c,
-                  const double rootsNum, const double dataX1, const double dataX2);
+                   const int rootsNum, const double dataX1, const double dataX2);
 
 //---------------------------------------------
 //! Gives a report of test failure
@@ -124,8 +124,8 @@ int testIsCorrect (const int i, const double a, const double b, const double c,
 //!
 //! \return Program finishing code
 //---------------------------------------------
-int testFailure (const int i, const double x1, const double x2, const double answers,
-                 const double rootsNum, const double dataX1, const double dataX2);
+int testFailure (const int i, const double x1, const double x2, const int answers,
+                 const int rootsNum, const double dataX1, const double dataX2);
 
 //---------------------------------------------
 //! Swaps 2 numbers
